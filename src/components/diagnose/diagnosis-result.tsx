@@ -510,7 +510,7 @@ export function FixCard({
         <div className="grid shrink-0 grid-cols-2 gap-2 sm:grid-cols-3">
           <Stat label="Verified success" value={fix.verifiedSuccessRate === null ? "Insufficient data" : `${fix.verifiedSuccessRate ?? fix.successRate}%`} className="text-success" />
           <Stat label="Match" value={`${fix.matchScore}%`} />
-          <Stat label="FixMind confidence" value={fix.confidence} className={CONFIDENCE_STYLE[fix.confidence]} />
+          <Stat label="Puvexa confidence" value={fix.confidence} className={CONFIDENCE_STYLE[fix.confidence]} />
           <Stat label="Risk" value={fix.risk} className={RISK_STYLE[fix.risk]} />
           <Stat label="Effort" value={fix.effort} />
           <Stat label="Time" value={fix.estimatedTime} />
@@ -518,7 +518,7 @@ export function FixCard({
       </div>
       {fix.trustLabel && <div className="mt-3 text-xs"><Badge>{fix.trustLabel}</Badge><span className="ml-2">Source type: {fix.sourceType}</span></div>}
       {fix.statisticalStatus && <p className="mt-3 text-xs">{fix.verifiedSuccessRate == null ? "Insufficient verified outcome data" : `${fix.verifiedSuccessRate}% verified success across ${fix.verifiedCases} eligible outcomes`}</p>}
-      <details className="mt-3 text-xs"><summary className="cursor-pointer font-medium">Why FixMind recommends this</summary><p className="mt-2">{fix.why}</p></details>
+      <details className="mt-3 text-xs"><summary className="cursor-pointer font-medium">Why Puvexa recommends this</summary><p className="mt-2">{fix.why}</p></details>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-3">
         <p className="text-[11px] text-muted-foreground">
           <CircleHelp className="mr-1 inline size-3" />
@@ -591,7 +591,7 @@ function SideRail({ c }: { c: NonNullable<ReturnType<typeof useCase>> }) {
       </div>
 
       <div className="rounded-2xl border border-border/80 bg-card/70 p-5">
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">FixMind confidence</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Puvexa confidence</p>
         {c.confidenceBreakdown && <dl className="mt-3 text-xs">{Object.entries(c.confidenceBreakdown).filter(([, value]) => typeof value === "number").map(([key, value]) => <div key={key} className="flex justify-between gap-2"><dt>{key.replaceAll("_", " ")}</dt><dd>{Math.round(value * 100)}%</dd></div>)}</dl>}
         <div className="mt-2 flex items-center gap-3">
           <span className="font-heading text-3xl font-semibold text-foreground">{c.confidence}%</span>

@@ -14,9 +14,9 @@ it("does not render a fake rate for insufficient samples", () => {
   expect(screen.getByText("AI Suggested")).toBeInTheDocument();
 });
 
-it("keeps verified success and FixMind confidence distinct", () => {
+it("keeps verified success and Puvexa confidence distinct", () => {
   render(<FixCard fix={{ ...fix, verifiedSuccessRate: 82, verifiedCases: 41 }} isTop onTry={() => {}} selected={false} />);
   expect(screen.getByText("82% verified success across 41 eligible outcomes")).toBeInTheDocument();
-  expect(screen.getByText("FixMind confidence")).toBeInTheDocument();
-  expect(screen.getByText("Why FixMind recommends this")).toBeInTheDocument();
+  expect(screen.getByText("Puvexa confidence")).toBeInTheDocument();
+  expect(screen.getByText("Why Puvexa recommends this")).toBeInTheDocument();
 });

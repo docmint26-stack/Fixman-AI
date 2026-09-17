@@ -69,7 +69,7 @@ export async function apiFetch<T>(path: string, options: ApiOptions = {}): Promi
     throw new ApiError(
       0,
       "NETWORK_ERROR",
-      "Could not reach the FixMind API. Is the backend running?",
+      "Could not reach the Puvexa API. Is the backend running?",
     );
   } finally {
     clearTimeout(timer);

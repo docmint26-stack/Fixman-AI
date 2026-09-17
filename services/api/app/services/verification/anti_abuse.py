@@ -1,4 +1,4 @@
-"""Anti-abuse, duplicate fix detection, and contribution scoring for FixMind AI.
+"""Anti-abuse, duplicate fix detection, and contribution scoring for Puvexa AI.
 
 Prevents gaming, sybil fix submissions, duplicate token farming, and copy-paste abuse.
 """

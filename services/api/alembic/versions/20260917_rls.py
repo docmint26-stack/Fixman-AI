@@ -33,7 +33,7 @@ def upgrade():
         EXECUTE 'REVOKE ALL ON {table} FROM anon, authenticated'; END IF; END $$;""")
     op.execute("""DO $$ BEGIN IF to_regclass('storage.buckets') IS NOT NULL THEN
     INSERT INTO storage.buckets (id, name, public, file_size_limit)
-    VALUES ('fixmind-evidence', 'fixmind-evidence', false, 15728640)
+    VALUES ('puvexa-evidence', 'puvexa-evidence', false, 15728640)
     ON CONFLICT (id) DO UPDATE SET public=false;
     END IF; END $$;""")
 

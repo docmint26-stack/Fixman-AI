@@ -230,7 +230,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" | "forgot" }) {
           <p className="text-xs text-muted-foreground">
             {isLogin || isForgot ? (
               <>
-                New to FixMind?{" "}
+                New to Puvexa?{" "}
                 <Link href="/signup" className="font-medium text-primary hover:underline">
                   Create an account
                 </Link>

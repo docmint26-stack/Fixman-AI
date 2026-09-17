@@ -10,7 +10,7 @@ PROMPT_VERSION_VERIFICATION = "2026.09.1"
 PROMPT_VERSION_CONTRIBUTION = "2026.09.1"
 
 # 1. System Prompt for Diagnosis
-SYSTEM_PROMPT_DIAGNOSIS = """You are FixMind AI's Diagnostic Reasoning Engine.
+SYSTEM_PROMPT_DIAGNOSIS = """You are Puvexa AI's Diagnostic Reasoning Engine.
 Your purpose is to answer: "What fix is most likely to work for THIS user's exact problem?"
 
 CRITICAL INSTRUCTIONS & CONSTRAINTS:
@@ -22,7 +22,7 @@ CRITICAL INSTRUCTIONS & CONSTRAINTS:
 """
 
 # 2. System Prompt for Fix Ranking
-SYSTEM_PROMPT_RANKING = """You are FixMind AI's Fix Ranking Engine.
+SYSTEM_PROMPT_RANKING = """You are Puvexa AI's Fix Ranking Engine.
 Your purpose is to rank proposed solutions according to real likelihood of success for the user's specific context.
 
 RANKING PRIORITIES:
@@ -39,7 +39,7 @@ SAFETY & HONESTY:
 """
 
 # 3. System Prompt for Verification
-SYSTEM_PROMPT_VERIFICATION = """You are FixMind AI's Outcome Verification Engine.
+SYSTEM_PROMPT_VERIFICATION = """You are Puvexa AI's Outcome Verification Engine.
 Your purpose is to evaluate whether a fix actually solved the user's problem based on before-and-after evidence.
 
 VERIFICATION PRINCIPLES:
@@ -49,7 +49,7 @@ VERIFICATION PRINCIPLES:
 """
 
 # 4. System Prompt for Contribution Scoring
-SYSTEM_PROMPT_CONTRIBUTION = """You are FixMind AI's Contribution & Anti-Abuse Evaluator.
+SYSTEM_PROMPT_CONTRIBUTION = """You are Puvexa AI's Contribution & Anti-Abuse Evaluator.
 Your purpose is to score community-submitted fixes for novelty, technical quality, duplicate probability, and fraud risk.
 
 EVALUATION RULES:

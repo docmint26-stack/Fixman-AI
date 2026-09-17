@@ -11,10 +11,10 @@ export default function DemoPage() {
           Interactive walkthrough
         </Badge>
         <h1 className="mx-auto mt-4 max-w-3xl font-heading text-3xl font-semibold tracking-tight text-foreground sm:text-5xl">
-          Watch FixMind fix a real problem — live
+          Watch Puvexa fix a real problem — live
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Follow an 8-stage walkthrough as FixMind diagnoses a hydration bug, ranks the fixes,
+          Follow an 8-stage walkthrough as Puvexa diagnoses a hydration bug, ranks the fixes,
           verifies the outcome, and rewards the knowledge. Everything below runs in your browser.
         </p>
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">

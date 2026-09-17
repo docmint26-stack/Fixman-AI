@@ -1,4 +1,4 @@
-"""Knowledge seed script for FixMind AI.
+"""Knowledge seed script for Puvexa AI.
 
 Loads curated official documentation and technical troubleshooting guides
 into knowledge_documents and knowledge_chunks with vector embeddings.
@@ -10,7 +10,7 @@ from app.services.knowledge.ingestion import KnowledgeIngestor
 
 
 async def seed_knowledge_base():
-    print("FixMind AI — Seeding Curated Knowledge Base...")
+    print("Puvexa AI — Seeding Curated Knowledge Base...")
     async with Session() as db:
         ingestor = KnowledgeIngestor(db)
         count = await ingestor.ingest_cold_start_seed()

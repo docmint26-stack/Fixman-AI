@@ -1,13 +1,13 @@
 services:
   postgres:
     image: pgvector/pgvector:pg16
-    container_name: fixmind-postgres
+    container_name: puvexa-postgres
     restart: unless-stopped
     ports:
       - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-fixmind}
-      POSTGRES_USER: ${POSTGRES_USER:-fixmind}
+      POSTGRES_DB: ${POSTGRES_DB:-puvexa}
+      POSTGRES_USER: ${POSTGRES_USER:-puvexa}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your development .env}
     volumes:
       - postgres_data:/var/lib/postgresql/data

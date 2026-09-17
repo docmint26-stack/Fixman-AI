@@ -56,7 +56,7 @@ function WizardShell({ children, footer }: { children: React.ReactNode; footer: 
       <PageHeader
         eyebrow="AI Diagnosis"
         title="Describe the problem"
-        subtitle="FixMind reads your description and evidence, then ranks the fixes most likely to work for your exact environment."
+        subtitle="Puvexa reads your description and evidence, then ranks the fixes most likely to work for your exact environment."
         action={
           <div className="flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary">
             <Microscope className="size-3.5" /> {isDemoMode ? "Free in this demo" : "Verified fixes"}

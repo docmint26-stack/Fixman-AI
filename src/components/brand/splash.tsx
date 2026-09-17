@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FixGlyph } from "@/components/brand/logo";
+import { PuvexaMark } from "@/components/brand/logo";
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
@@ -13,10 +13,10 @@ export function SplashScreen() {
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
-    if (prefersReducedMotion() || sessionStorage.getItem("fixmind:splash")) {
+    if (prefersReducedMotion() || sessionStorage.getItem("puvexa:splash")) {
       return;
     }
-    sessionStorage.setItem("fixmind:splash", "1");
+    sessionStorage.setItem("puvexa:splash", "1");
     queueMicrotask(() => setVisible(true));
 
     // progress pulse
@@ -57,7 +57,7 @@ export function SplashScreen() {
               className="relative"
             >
               <span className="absolute inset-0 -m-3 rounded-[30%] bg-primary/25 blur-2xl animate-pulse-glow" />
-              <FixGlyph size="xl" animate />
+              <PuvexaMark size="xl" animate />
             </motion.div>
 
             <motion.div
@@ -80,7 +80,7 @@ export function SplashScreen() {
                 }}
                 className="font-heading text-4xl font-semibold tracking-tight text-foreground sm:text-5xl"
               >
-                FixMind{" "}
+                Puvexa{" "}
                 <span className="text-gradient-strong font-semibold">AI</span>
               </motion.p>
               <motion.p

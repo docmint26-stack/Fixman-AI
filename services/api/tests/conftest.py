@@ -3,7 +3,7 @@ import tempfile
 from types import SimpleNamespace
 from uuid import NAMESPACE_URL, uuid4, uuid5
 
-_TEST_DIR = tempfile.mkdtemp(prefix="fixmind-tests-")
+_TEST_DIR = tempfile.mkdtemp(prefix="puvexa-tests-")
 _TEST_DB = os.path.join(_TEST_DIR, "test.db").replace("\\", "/")
 os.environ["DATABASE_URL"] = f"sqlite+aiosqlite:///{_TEST_DB}"
 os.environ["APP_ENV"] = "development"
@@ -86,7 +86,7 @@ async def migrated_db():
 async def seed_fixes():
     async with Session() as db:
         for title, category, steps in SEEDS:
-            identifier = str(uuid5(NAMESPACE_URL, "fixmind:curated:" + title))
+            identifier = str(uuid5(NAMESPACE_URL, "puvexa:curated:" + title))
             db.add(Fix(id=identifier, title=title, summary="Curated development guidance. No verified outcome statistics yet.", category=category, instructions=list(steps)))
         await db.commit()
 

@@ -130,7 +130,7 @@ export function LandingPage() {
             transition={{ delay: 0.1 }}
             className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg"
           >
-            FixMind diagnoses your problem against millions of verified cases, ranks the fix most
+            Puvexa diagnoses your problem against millions of verified cases, ranks the fix most
             likely to work for{" "}
             <RotatingWords words={["your environment", "your stack", "your build", "your device"]} className="text-foreground font-medium" />
             , and rewards the humans who make it work.
@@ -418,7 +418,7 @@ export function LandingPage() {
         <div className="mt-10 space-y-3">
           {[
             {
-              q: "Is FixMind free right now?",
+              q: "Is Puvexa free right now?",
               a: "Yes. During the testnet, diagnosis is 100% free. Contributors genuinely earn FIX for verified fixes that get reused.",
             },
             {
@@ -474,8 +474,8 @@ export function LandingPage() {
       <footer className="border-t border-border/50 bg-card/30">
         <section aria-label="Pitch and whitepaper" className="mx-auto grid max-w-6xl gap-4 px-4 pt-10 sm:grid-cols-2 sm:px-6">
           {[
-            { label: "Pitch", description: "Explore the FixMind AI investor presentation.", href: "/documents/fixmind-ai-pitch.pdf" },
-            { label: "Whitepaper", description: "Read the FixMind AI whitepaper v1.0.", href: "/documents/fixmind-ai-whitepaper.pdf" },
+            { label: "Pitch", description: "Explore the Puvexa AI investor presentation.", href: "/documents/puvexa-ai-pitch.pdf" },
+            { label: "Whitepaper", description: "Read the Puvexa AI whitepaper v1.0.", href: "/documents/puvexa-ai-whitepaper.pdf" },
           ].map((document) => (
             <div key={document.label} className="rounded-2xl border border-border/60 bg-card/50 p-5">
               <h2 className="font-heading text-lg font-semibold text-foreground">{document.label}:</h2>
@@ -500,7 +500,7 @@ export function LandingPage() {
             <Button size="sm" variant="ghost" className="text-muted-foreground">
               Docs
             </Button>
-            <Button size="sm" variant="ghost" className="text-muted-foreground" render={<a href="/documents/fixmind-ai-whitepaper.pdf" target="_blank" rel="noopener noreferrer" />}>
+            <Button size="sm" variant="ghost" className="text-muted-foreground" render={<a href="/documents/puvexa-ai-whitepaper.pdf" target="_blank" rel="noopener noreferrer" />}>
               Whitepaper
             </Button>
             <Button size="sm" variant="ghost" className="text-muted-foreground">
@@ -509,7 +509,7 @@ export function LandingPage() {
           </div>
         </div>
         <div className="border-t border-border/50 py-4 text-center text-[10px] text-muted-foreground">
-          FIX is a testnet token. Nothing here is financial advice. © 2026 FixMind AI.
+          FIX is a testnet token. Nothing here is financial advice. © 2026 Puvexa AI.
         </div>
       </footer>
     </div>

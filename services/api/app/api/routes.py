@@ -45,7 +45,7 @@ from app.schemas.requests import (
     ProfilePatch,
     SettingsPatch,
 )
-from app.services.ai.orchestrator import FixMindIntelligenceService
+from app.services.ai.orchestrator import PuvexaIntelligenceService
 from app.services.ai.provider import get_ai_provider
 from app.services.storage import get_storage, read_upload
 from app.services.verification.anti_abuse import ContributionAntiAbuseEngine
@@ -279,7 +279,7 @@ async def run_diagnosis_in_background(diagnosis_run_id: str, case_id: str, user_
         run = await db.get(DiagnosisRun, diagnosis_run_id)
         if case is None or run is None:
             return
-        orchestrator = FixMindIntelligenceService(db, get_ai_provider(get_settings()))
+        orchestrator = PuvexaIntelligenceService(db, get_ai_provider(get_settings()))
         await orchestrator.run_diagnosis_pipeline(case, run)
         if run.status in ("completed", "failed", "unavailable"):
             state = "completed" if run.status == "completed" else "updated"

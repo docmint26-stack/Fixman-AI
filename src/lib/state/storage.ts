@@ -2,13 +2,13 @@ import type { StateStorage } from "zustand/middleware";
 import { createJSONStorage } from "zustand/middleware";
 
 export const PERSIST_KEYS = {
-  auth: "fixmind:auth",
-  cases: "fixmind:cases",
-  rewards: "fixmind:rewards",
-  wallet: "fixmind:wallet",
-  notifications: "fixmind:notifications",
-  leaderboard: "fixmind:leaderboard",
-  tour: "fixmind:tour",
+  auth: "puvexa:auth",
+  cases: "puvexa:cases",
+  rewards: "puvexa:rewards",
+  wallet: "puvexa:wallet",
+  notifications: "puvexa:notifications",
+  leaderboard: "puvexa:leaderboard",
+  tour: "puvexa:tour",
 } as const;
 
 /** SSR-safe localStorage wrapper for zustand persist. */

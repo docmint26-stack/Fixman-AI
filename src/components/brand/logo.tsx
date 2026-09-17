@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { cn } from "cn";
 
 const GLYPH_SIZES = {
@@ -13,91 +14,41 @@ const GLYPH_SIZES = {
 
 export type GlyphSize = keyof typeof GLYPH_SIZES;
 
-type FixGlyphProps = {
+type PuvexaMarkProps = {
   size?: GlyphSize;
   animate?: boolean;
   className?: string;
-  delay?: number;
 };
 
 /**
- * The FixMind "F" glyph — built from signal-style bars inside a
- * gradient-trimmed tile. When `animate` is true the bars draw themselves
- * like a live signal line.
+ * The Puvexa mark — the official logo asset served from /puvexa.png.
+ * When `animate` is true the mark fades and scales in.
  */
-export function FixGlyph({
+export function PuvexaMark({
   size = "md",
   animate = false,
   className,
-  delay = 0,
-}: FixGlyphProps) {
+}: PuvexaMarkProps) {
   const px = GLYPH_SIZES[size];
   return (
-    <div
+    <motion.div
       className={cn(
-        "relative grid shrink-0 place-items-center rounded-[28%] border border-primary/25 bg-gradient-to-br from-primary/20 via-indigo-500/10 to-cyan-400/15 p-[14%] shadow-[0_0_24px_-6px] shadow-primary/40",
+        "relative grid shrink-0 place-items-center overflow-hidden rounded-[28%] border border-primary/20 bg-gradient-to-br from-primary/15 via-indigo-500/10 to-cyan-400/15 shadow-[0_0_24px_-6px] shadow-primary/40",
         className
       )}
       style={{ width: px, height: px }}
       aria-hidden
+      initial={animate ? { opacity: 0, scale: 0.8 } : false}
+      animate={animate ? { opacity: 1, scale: 1 } : undefined}
     >
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        style={{ width: "72%", height: "72%" }}
-      >
-        <motion.path
-          d="M7.5 19.5V4.5H17.25"
-          stroke="url(#fixmind-f-gradient)"
-          strokeWidth={2.6}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={animate ? { pathLength: 0 } : false}
-          animate={animate ? { pathLength: 1 } : undefined}
-          transition={
-            animate
-              ? { duration: 0.7, delay, ease: "easeOut" }
-              : undefined
-          }
-        />
-        <motion.path
-          d="M7.5 11.25h6.5"
-          stroke="url(#fixmind-f-gradient)"
-          strokeWidth={2.6}
-          strokeLinecap="round"
-          initial={animate ? { pathLength: 0 } : false}
-          animate={animate ? { pathLength: 1 } : undefined}
-          transition={
-            animate ? { duration: 0.7, delay: delay + 0.18, ease: "easeOut" } : undefined
-          }
-        />
-        <motion.circle
-          cx="7.5"
-          cy="4.5"
-          r="2"
-          fill="url(#fixmind-f-gradient)"
-          initial={animate ? { scale: 0, opacity: 0 } : false}
-          animate={animate ? { scale: 1, opacity: 1 } : undefined}
-          transition={
-            animate ? { delay: delay + 0.4, type: "spring", stiffness: 300, damping: 16 } : undefined
-          }
-        />
-        <defs>
-          <linearGradient
-            id="fixmind-f-gradient"
-            x1="0"
-            y1="0"
-            x2="24"
-            y2="24"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#a78bfa" />
-            <stop offset="0.55" stopColor="#818cf8" />
-            <stop offset="1" stopColor="#22d3ee" />
-          </linearGradient>
-        </defs>
-      </svg>
-    </div>
+      <Image
+        src="/puvexa.png"
+        alt=""
+        width={px}
+        height={px}
+        className="object-cover"
+      />
+    </motion.div>
   );
 }
 
@@ -122,7 +73,7 @@ export function Logo({
       onClick={onClick}
       role={onClick ? "button" : undefined}
     >
-      <FixGlyph size={size} animate={animated} />
+      <PuvexaMark size={size} animate={animated} />
       <div className="flex flex-col leading-none">
         <span
           className={cn(
@@ -136,7 +87,7 @@ export function Logo({
                   : "text-base"
           )}
         >
-          FixMind
+          Puvexa
           <span className="text-gradient font-semibold"> AI</span>
         </span>
         {withTagline && (

@@ -131,7 +131,7 @@ export function CommandPalette({
           <span className="flex items-center gap-1.5">
             <CornerDownLeft className="size-3" /> to open
           </span>
-          <span>{hasResults ? `${results.length} results` : "FixMind AI · demo mode"}</span>
+          <span>{hasResults ? `${results.length} results` : "Puvexa AI · demo mode"}</span>
         </div>
       </DialogContent>
     </Dialog>

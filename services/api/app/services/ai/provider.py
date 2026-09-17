@@ -1,4 +1,4 @@
-"""AI Provider abstraction layer for FixMind AI.
+"""AI Provider abstraction layer for Puvexa AI.
 
 Provides a unified interface (AIProvider Protocol) decoupling the platform
 from specific LLM vendors. Supports OpenAIProvider, MockAIProvider, and

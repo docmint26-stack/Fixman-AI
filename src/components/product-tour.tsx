@@ -12,7 +12,7 @@ const STEPS = [
   {
     icon: "stethoscope",
     title: "Start an AI Diagnosis",
-    body: "Describe any software, coding or device problem. FixMind reads your evidence and ranks the fixes most likely to work for your environment.",
+    body: "Describe any software, coding or device problem. Puvexa reads your evidence and ranks the fixes most likely to work for your environment.",
     href: "/diagnose",
     cta: "Start diagnosing",
   },
@@ -26,7 +26,7 @@ const STEPS = [
   {
     icon: "shield-check",
     title: "Verify what worked",
-    body: "Report the outcome and attach evidence. Real results — not guesses — are what make a fix trustworthy on FixMind.",
+    body: "Report the outcome and attach evidence. Real results — not guesses — are what make a fix trustworthy on Puvexa.",
     href: "/contribute",
     cta: "Verification explained",
   },

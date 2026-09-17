@@ -1,4 +1,4 @@
-"""FixMindIntelligenceService — AI Orchestration Layer.
+"""PuvexaIntelligenceService — AI Orchestration Layer.
 
 Orchestrates the 10-stage diagnosis pipeline:
   RECEIVED -> EVIDENCE_PROCESSING -> CONTEXT_NORMALIZATION -> KNOWLEDGE_RETRIEVAL
@@ -74,7 +74,7 @@ def normalize_source_type(source_type: str | None) -> str:
     return SOURCE_TYPE_NORMALIZATION.get((source_type or "").lower().strip(), "curated")
 
 
-class FixMindIntelligenceService:
+class PuvexaIntelligenceService:
     def __init__(self, db: AsyncSession, provider: AIProvider | None = None):
         self.db = db
         self.provider = provider or get_ai_provider()
@@ -251,7 +251,7 @@ class FixMindIntelligenceService:
                 output_tokens=len(ranked_result) * 80,
                 latency_ms=rank_latency,
                 estimated_cost_usd=0.0,
-                provider="fixmind_hybrid_rank",
+                provider="puvexa_hybrid_rank",
                 model=str(rank_model),
                 prompt_version=PROMPT_VERSION_RANKING,
             )

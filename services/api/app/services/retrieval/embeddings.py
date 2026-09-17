@@ -1,4 +1,4 @@
-"""Embedding normalization and vector utilities for FixMind AI.
+"""Embedding normalization and vector utilities for Puvexa AI.
 
 Extracts structured, anonymized features (symptoms, environment, error codes)
 free of private user data (paths, emails, personal names) to produce reproducible embeddings.

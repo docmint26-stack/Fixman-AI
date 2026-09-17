@@ -275,7 +275,7 @@ wheels = [
 ]
 
 [[package]]
-name = "fixmind-api"
+name = "puvexa-api"
 version = "0.3.0"
 source = { virtual = "." }
 dependencies = [

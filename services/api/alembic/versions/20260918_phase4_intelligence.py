@@ -1,4 +1,4 @@
-"""Phase 4 Real FixMind AI Intelligence Engine schema.
+"""Phase 4 Real Puvexa AI Intelligence Engine schema.
 
 Adds pgvector extension, knowledge base tables, embeddings, outcome intelligence,
 diagnosis sources provenance, and AI runs tracking.

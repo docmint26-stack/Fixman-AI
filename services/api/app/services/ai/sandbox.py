@@ -1,4 +1,4 @@
-"""Code analysis and execution sandbox interface for FixMind AI.
+"""Code analysis and execution sandbox interface for Puvexa AI.
 
 Prevents untrusted user code from executing directly on the host.
 Provides DisabledSandbox default and language/framework detection utilities.

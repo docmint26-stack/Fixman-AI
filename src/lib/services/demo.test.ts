@@ -42,7 +42,7 @@ beforeEach(() => {
 
 describe("auth service", () => {
   it("rejects invalid credentials", async () => {
-    const res = await authService.login("nobody@fixmind.ai", "wrong");
+    const res = await authService.login("nobody@puvexa.ai", "wrong");
     expect(res.ok).toBe(false);
     expect(authService.getUser()).toBeNull();
   });

@@ -1,4 +1,4 @@
-"""Curated cold-start knowledge base for FixMind AI.
+"""Curated cold-start knowledge base for Puvexa AI.
 
 Contains authoritative technical troubleshooting guides from official documentation
 and curated engineering knowledge to bootstrap cold-start retrieval without fabricating community metrics.

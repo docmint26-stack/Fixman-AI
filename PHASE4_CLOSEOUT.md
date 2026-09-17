@@ -57,7 +57,7 @@ completed visual browser QA.
     Missing rates and undersized samples stay unavailable; the UI never derives a rate from counts.
     The trusted-review path now uses the configured threshold too.
 14. **Confidence:** composite breakdown from evidence, context, retrieval, authority, historical
-    outcomes and AI agreement. UI explicitly labels FixMind confidence separately from verified
+    outcomes and AI agreement. UI explicitly labels Puvexa confidence separately from verified
     success; it is an uncalibrated heuristic, not a guarantee.
 15. **Hallucination controls:** grounded context, Pydantic output parsing, bounded repair, safe
     error mapping, explicit unknown/no-key states, and no fabricated recommendation on tested

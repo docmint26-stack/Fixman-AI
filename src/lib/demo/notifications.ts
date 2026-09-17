@@ -84,7 +84,7 @@ export const notifications: NotificationItem[] = [
   },
   {
     id: "n-10",
-    title: "Welcome to FixMind",
+    title: "Welcome to Puvexa",
     body: "Finish your profile and take the 1-minute product tour.",
     time: "1mo ago",
     kind: "system",

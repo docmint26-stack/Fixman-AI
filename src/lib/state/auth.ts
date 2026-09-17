@@ -31,7 +31,7 @@ function buildNewUser(account: NewAccount): DemoUser {
     password: account.password,
     role: "Contributor",
     level: "Solver",
-    bio: "New to FixMind — diagnosing problems and verifying outcomes.",
+    bio: "New to Puvexa — diagnosing problems and verifying outcomes.",
     location: "—",
     memberSince: "Sep 2026",
     expertise: [],
@@ -69,7 +69,7 @@ export const useAuthStore = create<AuthState>()(
         }
         return {
           ok: false,
-          error: "Invalid email or password. Demo account: alex@fixmind.ai / demo1234",
+          error: "Invalid email or password. Demo account: alex@puvexa.ai / demo1234",
         };
       },
 

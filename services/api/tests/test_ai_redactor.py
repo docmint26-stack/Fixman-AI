@@ -35,15 +35,15 @@ def test_redact_jwt_token():
 
 
 def test_redact_database_connection_string():
-    raw = "DATABASE_URL=postgresql://appuser:super_secret_pw123@db.supabase.co:5432/fixmind"
+    raw = "DATABASE_URL=postgresql://appuser:super_secret_pw123@db.supabase.co:5432/puvexa"
     redacted, cats = redact_secrets(raw)
     assert "super_secret_pw123" not in redacted
-    assert "postgresql://appuser:[REDACTED]@db.supabase.co:5432/fixmind" in redacted
+    assert "postgresql://appuser:[REDACTED]@db.supabase.co:5432/puvexa" in redacted
     assert "db_connection_string" in cats
 
 
 def test_redact_authorization_header():
-    raw = "GET /api/v1/cases HTTP/1.1\nAuthorization: Bearer secret_bearer_token_xyz\nHost: fixmind.ai"
+    raw = "GET /api/v1/cases HTTP/1.1\nAuthorization: Bearer secret_bearer_token_xyz\nHost: puvexa.ai"
     redacted, cats = redact_secrets(raw)
     assert "secret_bearer_token_xyz" not in redacted
     assert "Authorization: [REDACTED]" in redacted

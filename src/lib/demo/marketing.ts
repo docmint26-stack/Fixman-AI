@@ -10,7 +10,7 @@ export const howItWorksSteps = [
     step: "01",
     title: "Describe the problem",
     description:
-      "Type what happened, paste logs, or drop a screenshot. FixMind reads the context automatically.",
+      "Type what happened, paste logs, or drop a screenshot. Puvexa reads the context automatically.",
     icon: "upload",
   },
   {
@@ -47,7 +47,7 @@ export const features = [
   {
     title: "Context-Aware Diagnosis",
     description:
-      "FixMind reads your logs, environment, and stack so answers match your exact setup — not generic advice.",
+      "Puvexa reads your logs, environment, and stack so answers match your exact setup — not generic advice.",
     icon: "scan-search",
   },
   {
@@ -94,7 +94,7 @@ export const testimonials = [
   },
   {
     quote:
-      "I contributed a driver rollback in January and it's still being reused. FixMind turned 'helping people' into a measurable income stream.",
+      "I contributed a driver rollback in January and it's still being reused. Puvexa turned 'helping people' into a measurable income stream.",
     name: "Daniel Kim",
     role: "Systems Engineer",
     handle: "@danielkim",

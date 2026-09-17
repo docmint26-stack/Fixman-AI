@@ -15,7 +15,7 @@ from app.core.config import get_settings
 from app.core.exceptions import APIError
 from app.db.session import Session, engine
 
-logger = logging.getLogger("fixmind")
+logger = logging.getLogger("puvexa")
 settings = get_settings()
 
 
@@ -27,7 +27,7 @@ async def lifespan(app):
     await engine.dispose()
 
 
-app = FastAPI(title="FixMind API", version="0.3.0", lifespan=lifespan, docs_url="/docs" if settings.app_env != "production" else None, redoc_url=None)
+app = FastAPI(title="Puvexa API", version="0.3.0", lifespan=lifespan, docs_url="/docs" if settings.app_env != "production" else None, redoc_url=None)
 app.add_middleware(CORSMiddleware, allow_origins=[x.strip() for x in settings.cors_origins.split(",")], allow_methods=["GET", "POST", "PATCH", "DELETE"], allow_headers=["Authorization", "Content-Type"], allow_credentials=False)
 
 

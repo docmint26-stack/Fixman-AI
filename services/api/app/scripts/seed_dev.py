@@ -22,7 +22,7 @@ async def seed():
         raise RuntimeError("Development seeds are disabled outside development.")
     async with Session() as db, db.begin():
         for title, category, steps in SEEDS:
-            identifier = str(uuid5(NAMESPACE_URL, "fixmind:curated:" + title))
+            identifier = str(uuid5(NAMESPACE_URL, "puvexa:curated:" + title))
             if not await db.scalar(select(Fix).where(Fix.id == identifier)):
                 db.add(Fix(id=identifier, title=title, summary="Curated development guidance. No verified outcome statistics yet.", category=category, instructions=steps))
     print("Six curated fixes available. No users, passwords, rewards, or success statistics seeded.")

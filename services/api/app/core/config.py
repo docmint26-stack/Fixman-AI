@@ -7,12 +7,12 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     app_env: str = "development"
-    database_url: str = "sqlite+aiosqlite:///./fixmind.db"
+    database_url: str = "sqlite+aiosqlite:///./puvexa.db"
     supabase_url: str = ""
     supabase_anon_key: str = ""
     supabase_service_role_key: str = ""
     supabase_jwks_url: str = ""
-    supabase_storage_bucket_evidence: str = "fixmind-evidence"
+    supabase_storage_bucket_evidence: str = "puvexa-evidence"
     cors_origins: str = "http://localhost:3000"
     max_upload_mb: int = 15
     ai_provider: str = "unconfigured"

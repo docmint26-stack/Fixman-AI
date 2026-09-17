@@ -1,4 +1,4 @@
-"""Secret and sensitive data redaction for FixMind AI.
+"""Secret and sensitive data redaction for Puvexa AI.
 
 Ensures credentials, API keys, JWTs, private keys, database URLs, and auth headers
 are redacted before sending logs/code/text to external AI providers.

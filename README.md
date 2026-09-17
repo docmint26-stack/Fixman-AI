@@ -1,4 +1,4 @@
-# FixMind AI — Frontend UI
+# Puvexa AI — Frontend UI
 
 Premium, dark-first AI troubleshooting platform with Web3 FIX-token rewards.
 Built with Next.js 16.3.5, React 19, Tailwind CSS 4, shadcn v4 (Base UI), Zustand and Framer Motion.
@@ -8,14 +8,14 @@ wallet) is fully interactive and backed by an in-memory + `localStorage` state l
 is required.
 
 When `NEXT_PUBLIC_DEMO_MODE` is **not** `"true"`, the same UI is driven by a production layer:
-a Supabase Auth session plus the FixMind FastAPI backend (`services/api`). `src/lib/services/index.ts`
+a Supabase Auth session plus the Puvexa FastAPI backend (`services/api`). `src/lib/services/index.ts`
 is the single swap point — demo implementations are used in demo mode, API-backed implementations
 in production.
 
 ## Demo credentials
 
 ```
-Email:    alex@fixmind.ai
+Email:    alex@puvexa.ai
 Password: demo1234
 ```
 
@@ -204,18 +204,18 @@ known blockers, and next steps. Phase 5 is not started.
 
 ### Local PostgreSQL and pgvector (PowerShell)
 
-Run from `fixmind-ai`. Docker Engine/Desktop must be installed and running.
+Run from `puvexa-ai`. Docker Engine/Desktop must be installed and running.
 Set development values in the shell (or copy the PostgreSQL entries from `.env.example`
 into a local `.env`; do not commit real credentials):
 
 ```powershell
-$env:POSTGRES_DB = 'fixmind'
-$env:POSTGRES_USER = 'fixmind'
+$env:POSTGRES_DB = 'puvexa'
+$env:POSTGRES_USER = 'puvexa'
 $env:POSTGRES_PASSWORD = 'replace-with-a-local-development-password'
 $env:POSTGRES_PORT = '5432'
 docker compose up -d
 Set-Location services/api
-$env:DATABASE_URL = 'postgresql+asyncpg://fixmind:replace-with-a-local-development-password@localhost:5432/fixmind'
+$env:DATABASE_URL = 'postgresql+asyncpg://puvexa:replace-with-a-local-development-password@localhost:5432/puvexa'
 $env:AI_PROVIDER = 'mock'
 .\.venv\Scripts\python.exe -m alembic upgrade head
 .\.venv\Scripts\python.exe -m app.scripts.seed_dev
@@ -234,7 +234,7 @@ Without Docker, use the verified SQLite fallback:
 
 ```powershell
 Set-Location services/api
-$env:DATABASE_URL = 'sqlite+aiosqlite:///./fixmind.db'
+$env:DATABASE_URL = 'sqlite+aiosqlite:///./puvexa.db'
 $env:AI_PROVIDER = 'mock'
 .\.venv\Scripts\python.exe -m alembic upgrade head
 .\.venv\Scripts\python.exe -m app.scripts.seed_dev
@@ -243,7 +243,7 @@ $env:AI_PROVIDER = 'mock'
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
 ```
 
-In a second terminal, from `fixmind-ai`:
+In a second terminal, from `puvexa-ai`:
 
 ```powershell
 npm.cmd run dev
@@ -282,7 +282,7 @@ on completed/failed/unavailable, and loads recommendations plus sources. The ana
 panel uses actual server stage/progress. Polling is bounded and lives outside page JSX.
 Case detail refresh restores confidence and provenance after reload.
 
-The result separates FixMind confidence (a heuristic composite, not a success rate) from
+The result separates Puvexa confidence (a heuristic composite, not a success rate) from
 verified outcomes. The breakdown includes evidence completeness, context match, retrieval
 strength, source authority, historical outcome strength and AI agreement. It is not a
 calibrated probability or guarantee. Below the server-supplied minimum sample, the UI says
@@ -291,7 +291,7 @@ a missing rate from counts. Eligible outcomes exclude provisional self-report re
 
 Trust labels normalize AI Suggestion to **AI Suggested** and Outcome-Backed Fix to
 **Outcome-Backed**; official/curated labels retain their provenance. Verification claims
-must originate from backend assessments. The expandable "Why FixMind recommends this"
+must originate from backend assessments. The expandable "Why Puvexa recommends this"
 shows the stored explanation. Source cards expose curated titles/URLs and outcome pattern
 labels, never another user's raw logs, images, code, or outcome identifiers.
 

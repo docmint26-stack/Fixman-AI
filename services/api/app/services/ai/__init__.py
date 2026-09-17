@@ -1,2 +1,2 @@
-"""FixMind AI services core package."""
+"""Puvexa AI services core package."""
 

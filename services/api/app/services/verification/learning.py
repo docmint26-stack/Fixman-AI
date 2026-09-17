@@ -145,7 +145,7 @@ class OutcomeLearningEngine:
                         reference_id=outcome.id,
                         amount=8,
                         status="claimable",
-                        reason="Verified outcome in FixMind graph",
+                        reason="Verified outcome in Puvexa graph",
                         idempotency_key=key,
                         claimable_at=now(),
                     )
@@ -159,7 +159,7 @@ class OutcomeLearningEngine:
                         event_type="verified_outcome",
                         reference_id=outcome.id,
                         points=20,
-                        reason="Verified outcome in FixMind graph",
+                        reason="Verified outcome in Puvexa graph",
                         idempotency_key=key,
                     )
                     .on_conflict_do_nothing()

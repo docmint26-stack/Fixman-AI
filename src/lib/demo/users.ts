@@ -3,7 +3,7 @@ import type { DemoUser } from "./types";
 export const DEMO_MODE = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
 
 export const DEMO_CREDENTIALS = {
-  email: "alex@fixmind.ai",
+  email: "alex@puvexa.ai",
   password: "demo1234",
 };
 
@@ -12,7 +12,7 @@ export const DEMO_USER: DemoUser = {
   name: "Alex Morgan",
   username: "alex",
   handle: "@alexmorgan",
-  email: "alex@fixmind.ai",
+  email: "alex@puvexa.ai",
   password: "demo1234",
   role: "Contributor",
   level: "Expert Solver",

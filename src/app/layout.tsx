@@ -20,13 +20,13 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata = {
   title: {
-    default: "FixMind AI — Troubleshoot with AI, earn verified FIX rewards",
-    template: "%s · FixMind AI",
+    default: "Puvexa AI — Troubleshoot with AI, earn verified FIX rewards",
+    template: "%s · Puvexa AI",
   },
   description:
-    "FixMind AI analyzes your software, coding and device problems, recommends the best verified fixes, learns from real outcomes, and rewards useful contributions with FIX tokens.",
+    "Puvexa AI analyzes your software, coding and device problems, recommends the best verified fixes, learns from real outcomes, and rewards useful contributions with FIX tokens.",
   keywords: [
-    "FixMind AI",
+    "Puvexa AI",
     "AI troubleshooting",
     "verified fixes",
     "FIX tokens",
@@ -34,12 +34,12 @@ export const metadata = {
     "Web3 rewards",
   ],
   icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
+    icon: "/icon.png",
+    apple: "/icon.png",
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
-    title: "FixMind AI",
+    title: "Puvexa AI",
     description:
       "AI that learns from what actually works. Solve problems, verify outcomes, earn FIX.",
     type: "website",

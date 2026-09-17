@@ -1,4 +1,4 @@
-"""End-to-end tests for the FixMind AI diagnosis pipeline (mock provider)."""
+"""End-to-end tests for the Puvexa AI diagnosis pipeline (mock provider)."""
 import asyncio
 from decimal import Decimal
 from uuid import uuid4

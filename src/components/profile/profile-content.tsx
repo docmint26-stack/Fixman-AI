@@ -186,7 +186,7 @@ export function ProfileContent() {
                 </span>
               </div>
               <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <Icon name="shield-check" className="size-3.5 text-success" /> Keys stay in your wallet. FixMind never holds funds.
+                <Icon name="shield-check" className="size-3.5 text-success" /> Keys stay in your wallet. Puvexa never holds funds.
               </p>
               <Button
                 size="sm"

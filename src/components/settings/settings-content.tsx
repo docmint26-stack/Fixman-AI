@@ -110,7 +110,7 @@ export function SettingsContent() {
         <Card>
           <CardHeader>
             <CardTitle>Notifications</CardTitle>
-            <CardDescription>Choose what you hear about from FixMind.</CardDescription>
+            <CardDescription>Choose what you hear about from Puvexa.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-1">
             {(
