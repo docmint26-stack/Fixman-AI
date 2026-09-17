@@ -474,14 +474,14 @@ export function LandingPage() {
       <footer className="border-t border-border/50 bg-card/30">
         <section aria-label="Pitch and whitepaper" className="mx-auto grid max-w-6xl gap-4 px-4 pt-10 sm:grid-cols-2 sm:px-6">
           {[
-            { label: "Pitch", description: "Explore the Puvexa AI investor presentation.", href: "/documents/puvexa-ai-pitch.pdf" },
-            { label: "Whitepaper", description: "Read the Puvexa AI whitepaper v1.0.", href: "/documents/puvexa-ai-whitepaper.pdf" },
+            { label: "Investor & Product Deck", description: "Explore the Puvexa AI investor and product deck.", href: "/documents/puvexa-ai-pitch.pdf" },
+            { label: "Whitepaper v1.0", description: "Read the Puvexa AI whitepaper v1.0.", href: "/documents/puvexa-ai-whitepaper.pdf" },
           ].map((document) => (
             <div key={document.label} className="rounded-2xl border border-border/60 bg-card/50 p-5">
               <h2 className="font-heading text-lg font-semibold text-foreground">{document.label}:</h2>
               <p className="mt-1 text-sm text-muted-foreground">{document.description}</p>
-              <Button variant="secondary" className="mt-4" render={<a href={document.href} target="_blank" rel="noopener noreferrer" aria-label={`Open ${document.label} PDF in a new tab`} />}>
-                <FileText className="size-4" /> Open {document.label} <ExternalLink className="size-3.5" />
+              <Button variant="secondary" className="mt-4" render={<a href={document.href} target="_blank" rel="noopener noreferrer" aria-label={`Download ${document.label} PDF in a new tab`} />}>
+                <FileText className="size-4" /> Download {document.label} <ExternalLink className="size-3.5" />
               </Button>
             </div>
           ))}
