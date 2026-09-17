@@ -104,7 +104,7 @@ function ProblemView() {
 }
 
 function AnalyzeView() {
-  const stages = [
+  const stages = React.useMemo(() => [
     { label: "Understanding context", pct: 14 },
     { label: "Checking evidence", pct: 28 },
     { label: "Extracting error signatures", pct: 42 },
@@ -112,12 +112,12 @@ function AnalyzeView() {
     { label: "Evaluating outcomes", pct: 71 },
     { label: "Ranking fixes", pct: 85 },
     { label: "Preparing recommendation", pct: 100 },
-  ];
+  ], []);
   const [active, setActive] = React.useState(0);
   React.useEffect(() => {
     const timers = stages.map((_, i) => setTimeout(() => setActive(i + 1), 580 * (i + 1)));
     return () => timers.forEach(clearTimeout);
-  }, []);
+  }, [stages]);
   return (
     <motion.div
       initial={{ opacity: 0 }}

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader2, Sparkles } from "lucide-react";
 import { cn } from "cn";
 import { Icon } from "@/components/shared/icon";
+import { DIAGNOSIS_STAGES } from "@/lib/api/diagnosis";
 
 export const WIZARD_STAGES = [
   { label: "Understanding context", detail: "Parsing the title, description, and category" },
@@ -25,14 +26,25 @@ const TIPS = [
 export function AnalyzingPanel({
   title,
   onComplete,
+  production = false,
+  stage = "RECEIVED",
+  stageProgress = 0,
 }: {
   title: string;
   onComplete: () => void;
+  production?: boolean;
+  stage?: string;
+  stageProgress?: number;
 }) {
   const [step, setStep] = React.useState(0);
   const [tip, setTip] = React.useState(TIPS[0]);
 
   React.useEffect(() => {
+    if (production) {
+      // Start once; the parent supplies actual backend stage progress.
+      const t = setTimeout(onComplete, 0);
+      return () => clearTimeout(t);
+    }
     const timers: ReturnType<typeof setTimeout>[] = [];
     WIZARD_STAGES.forEach((_, i) => {
       timers.push(setTimeout(() => setStep(i + 1), 520 * (i + 1)));
@@ -42,9 +54,9 @@ export function AnalyzingPanel({
     });
     timers.push(setTimeout(onComplete, 520 * WIZARD_STAGES.length + 650));
     return () => timers.forEach(clearTimeout);
-  }, [onComplete]);
+  }, [onComplete, production]);
 
-  const progress = (step / WIZARD_STAGES.length) * 100;
+  const progress = production ? stageProgress : (step / WIZARD_STAGES.length) * 100;
 
   return (
     <motion.div
@@ -61,62 +73,67 @@ export function AnalyzingPanel({
       </div>
 
       <p className="text-center text-sm font-medium text-foreground">
-        Analyzing “{title.slice(0, 60)}{title.length > 60 ? "…" : ""}”
+        {production ? "Analyzing your case" : `Analyzing “${title.slice(0, 60)}${title.length > 60 ? "…" : ""}”`}
       </p>
       <p className="mt-1 text-xs text-muted-foreground">
-        White-box diagnosis on the outcome graph — no hidden chain-of-thought
+        {production
+          ? "Progress comes from the diagnosis service. Recommendations remain evidence-based hypotheses."
+          : "White-box diagnosis on the outcome graph — no hidden chain-of-thought"}
       </p>
 
-      <div className="mt-8 w-full max-w-md space-y-1.5">
-        {WIZARD_STAGES.map((s, i) => {
-          const done = i < step;
-          const current = i === step;
-          return (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0.35 }}
-              animate={{ opacity: done || current ? 1 : 0.45 }}
-              className={cn(
-                "flex items-center gap-3 rounded-xl border px-3.5 py-2.5 transition-colors",
-                current
-                  ? "border-primary/40 bg-primary/5"
-                  : done
-                    ? "border-border/60 bg-card/50"
-                    : "border-transparent"
-              )}
-            >
-              <span
+      {production && <p role="status" className="mt-6 text-sm">{DIAGNOSIS_STAGES[stage as keyof typeof DIAGNOSIS_STAGES] ?? "Diagnosis in progress..."} {progress}%</p>}
+      {!production && (
+        <div className="mt-8 w-full max-w-md space-y-1.5">
+          {WIZARD_STAGES.map((s, i) => {
+            const done = i < step;
+            const current = i === step;
+            return (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0.35 }}
+                animate={{ opacity: done || current ? 1 : 0.45 }}
                 className={cn(
-                  "grid size-6 shrink-0 place-items-center rounded-full border",
-                  done && "border-success/40 bg-success/15 text-success",
-                  current && "border-primary/40 bg-primary/10 text-primary",
-                  !done && !current && "border-border text-muted-foreground/50"
+                  "flex items-center gap-3 rounded-xl border px-3.5 py-2.5 transition-colors",
+                  current
+                    ? "border-primary/40 bg-primary/5"
+                    : done
+                      ? "border-border/60 bg-card/50"
+                      : "border-transparent"
                 )}
               >
-                {done ? (
-                  <Check className="size-3.5" />
-                ) : current ? (
-                  <Loader2 className="size-3.5 animate-spin" />
-                ) : (
-                  <span className="size-1.5 rounded-full bg-current" />
-                )}
-              </span>
-              <span className="min-w-0 flex-1">
                 <span
                   className={cn(
-                    "block truncate text-sm font-medium",
-                    current ? "text-foreground" : done ? "text-foreground/90" : "text-muted-foreground"
+                    "grid size-6 shrink-0 place-items-center rounded-full border",
+                    done && "border-success/40 bg-success/15 text-success",
+                    current && "border-primary/40 bg-primary/10 text-primary",
+                    !done && !current && "border-border text-muted-foreground/50"
                   )}
                 >
-                  {s.label}
+                  {done ? (
+                    <Check className="size-3.5" />
+                  ) : current ? (
+                    <Loader2 className="size-3.5 animate-spin" />
+                  ) : (
+                    <span className="size-1.5 rounded-full bg-current" />
+                  )}
                 </span>
-                <span className="block truncate text-[11px] text-muted-foreground">{s.detail}</span>
-              </span>
-              {current && <span className="text-[11px] font-semibold text-primary">{Math.round(progress)}%</span>}
-            </motion.div>
-          );
-        })}
-      </div>
+                <span className="min-w-0 flex-1">
+                  <span
+                    className={cn(
+                      "block truncate text-sm font-medium",
+                      current ? "text-foreground" : done ? "text-foreground/90" : "text-muted-foreground"
+                    )}
+                  >
+                    {s.label}
+                  </span>
+                  <span className="block truncate text-[11px] text-muted-foreground">{s.detail}</span>
+                </span>
+                {current && <span className="text-[11px] font-semibold text-primary">{Math.round(progress)}%</span>}
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
 
       <div className="mt-6 h-1.5 w-full max-w-md overflow-hidden rounded-full bg-muted">
         <motion.div

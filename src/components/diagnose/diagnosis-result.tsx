@@ -29,6 +29,7 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { Icon } from "@/components/shared/icon";
 import { VerificationPanel } from "@/components/diagnose/verification-panel";
 import { useCase, useCaseActions, useRewards } from "@/lib/hooks";
+import { isDemoMode } from "@/lib/services";
 import type { OutcomeState, RankingFix } from "@/lib/demo/types";
 
 const CONFIDENCE_STYLE: Record<string, string> = {
@@ -55,7 +56,7 @@ export function DiagnosisResult({ caseId }: { caseId: string }) {
       <EmptyState
         icon="compass"
         title="Case not found"
-        description="This case doesn't exist or has been cleared with the demo data."
+        description={isDemoMode ? "This case doesn't exist or has been cleared with the demo data." : "This case doesn't exist or you no longer have access to it."}
         actionLabel="Back to my cases"
         href="/cases"
       />
@@ -90,6 +91,18 @@ export function DiagnosisResult({ caseId }: { caseId: string }) {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
         <div className="min-w-0 space-y-6">
+          {c.problemSummary && <section className="rounded-2xl border border-border/80 bg-card/70 p-5">
+            <h2 className="text-sm font-semibold">Problem Summary</h2><p className="mt-2 text-sm">{c.problemSummary}</p>
+            <h2 className="mt-4 text-sm font-semibold">Likely Cause</h2><p className="mt-2 text-sm">{c.reasoning[0]?.cause ?? "Needs more evidence"}</p>
+          </section>}
+          {c.sources && <section className="rounded-2xl border border-border/80 bg-card/70 p-5">
+            <h2 className="text-sm font-semibold">Sources / Provenance</h2>
+            {c.sources.length === 0 && <p className="mt-2 text-xs">No grounded sources were retrieved.</p>}
+            {c.sources.map(source => <div key={source.id} className="mt-3 rounded-lg border border-border p-3 text-sm">
+              <p>{source.title ?? ({ official_doc: "Official Documentation", curated: "Curated Knowledge", knowledge_chunk: "Curated Knowledge", verified_outcome: "Verified Outcome Pattern", outcome_intelligence: "Verified Outcome Pattern" } as Record<string, string>)[source.source_type] ?? "Knowledge Source"}</p>
+              {source.source_url && /^https?:\/\//i.test(source.source_url) && <a className="text-primary underline" href={source.source_url} target="_blank" rel="noreferrer">View source</a>}
+            </div>)}
+          </section>}
           {verifying ? (
             <div className="rounded-2xl border border-border/80 bg-card/70 p-6">
               <VerificationPanel
@@ -158,7 +171,7 @@ export function DiagnosisResult({ caseId }: { caseId: string }) {
                   <div className="mt-3">
                     <Progress value={(c.observation.hoursElapsed / c.observation.hoursTotal) * 100} className="w-full" />
                   </div>
-                  {c.status === "Monitoring" && isResolvedPath && !c.observation.complete && (
+                  {isDemoMode && c.status === "Monitoring" && isResolvedPath && !c.observation.complete && (
                     <div className="mt-4 flex items-center gap-3 rounded-xl bg-card/70 p-3">
                       <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
                         <FastForward className="size-4" />
@@ -171,6 +184,11 @@ export function DiagnosisResult({ caseId }: { caseId: string }) {
                         Advance time
                       </Button>
                     </div>
+                  )}
+                  {!isDemoMode && c.status === "Monitoring" && isResolvedPath && !c.observation.complete && (
+                    <p className="mt-4 text-[11px] text-muted-foreground">
+                      This case will resolve automatically once the server completes the observation window.
+                    </p>
                   )}
                   {c.status === "Monitoring" && !isResolvedPath && (
                     <Button size="sm" variant="secondary" className="mt-4 bg-card/70" onClick={() => markFailed(c.id)}>
@@ -207,7 +225,7 @@ export function DiagnosisResult({ caseId }: { caseId: string }) {
                       <span className="text-xs text-muted-foreground">
                         {c.stepsDone}/{c.stepsTotal} done
                       </span>
-                      <span className="text-xs font-semibold text-success">{c.successRate}% success</span>
+                      <span className="text-xs font-semibold text-success">{selectedFix.verifiedSuccessRate === null ? "Insufficient verified outcome data" : `${selectedFix.verifiedSuccessRate ?? selectedFix.successRate}% verified success`}</span>
                     </div>
                   </div>
 
@@ -256,7 +274,8 @@ export function DiagnosisResult({ caseId }: { caseId: string }) {
                           <DialogHeader>
                             <DialogTitle>How did it go?</DialogTitle>
                             <DialogDescription>
-                              Choose the outcome after applying <span className="text-foreground">{selectedFix.title}</span>. Demo value is simulated.
+                              Choose the outcome after applying <span className="text-foreground">{selectedFix.title}</span>.
+                              {isDemoMode ? " Demo value is simulated." : " The server verifies it over the full observation window."}
                             </DialogDescription>
                           </DialogHeader>
                           <div className="grid gap-2 py-2">
@@ -452,7 +471,7 @@ function FixRankings({ c, onTry }: { c: NonNullable<ReturnType<typeof useCase>>;
   );
 }
 
-function FixCard({
+export function FixCard({
   fix,
   isTop,
   onTry,
@@ -489,18 +508,21 @@ function FixCard({
           </div>
         </div>
         <div className="grid shrink-0 grid-cols-2 gap-2 sm:grid-cols-3">
-          <Stat label="Success" value={`${fix.successRate}%`} className="text-success" />
+          <Stat label="Verified success" value={fix.verifiedSuccessRate === null ? "Insufficient data" : `${fix.verifiedSuccessRate ?? fix.successRate}%`} className="text-success" />
           <Stat label="Match" value={`${fix.matchScore}%`} />
-          <Stat label="Confidence" value={fix.confidence} className={CONFIDENCE_STYLE[fix.confidence]} />
+          <Stat label="FixMind confidence" value={fix.confidence} className={CONFIDENCE_STYLE[fix.confidence]} />
           <Stat label="Risk" value={fix.risk} className={RISK_STYLE[fix.risk]} />
           <Stat label="Effort" value={fix.effort} />
           <Stat label="Time" value={fix.estimatedTime} />
         </div>
       </div>
+      {fix.trustLabel && <div className="mt-3 text-xs"><Badge>{fix.trustLabel}</Badge><span className="ml-2">Source type: {fix.sourceType}</span></div>}
+      {fix.statisticalStatus && <p className="mt-3 text-xs">{fix.verifiedSuccessRate == null ? "Insufficient verified outcome data" : `${fix.verifiedSuccessRate}% verified success across ${fix.verifiedCases} eligible outcomes`}</p>}
+      <details className="mt-3 text-xs"><summary className="cursor-pointer font-medium">Why FixMind recommends this</summary><p className="mt-2">{fix.why}</p></details>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-3">
         <p className="text-[11px] text-muted-foreground">
           <CircleHelp className="mr-1 inline size-3" />
-          Verified in {fix.verifiedCases.toLocaleString()} cases
+          Based on {fix.verifiedCases.toLocaleString()} verified outcome(s)
         </p>
         {!isTop ? (
           <Button size="sm" variant="secondary" onClick={onTry}>
@@ -569,7 +591,8 @@ function SideRail({ c }: { c: NonNullable<ReturnType<typeof useCase>> }) {
       </div>
 
       <div className="rounded-2xl border border-border/80 bg-card/70 p-5">
-        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Confidence</p>
+        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">FixMind confidence</p>
+        {c.confidenceBreakdown && <dl className="mt-3 text-xs">{Object.entries(c.confidenceBreakdown).filter(([, value]) => typeof value === "number").map(([key, value]) => <div key={key} className="flex justify-between gap-2"><dt>{key.replaceAll("_", " ")}</dt><dd>{Math.round(value * 100)}%</dd></div>)}</dl>}
         <div className="mt-2 flex items-center gap-3">
           <span className="font-heading text-3xl font-semibold text-foreground">{c.confidence}%</span>
           <div className="flex-1">

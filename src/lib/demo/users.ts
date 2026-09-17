@@ -35,5 +35,6 @@ export const DEMO_USER: DemoUser = {
 
 export function publicUser(u: DemoUser) {
   const { password, ...rest } = u;
+  void password;
   return rest;
 }

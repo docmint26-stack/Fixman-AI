@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { AnimatePresence } from "framer-motion";
@@ -16,6 +16,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AnalyzingPanel } from "@/components/diagnose/analyzing-panel";
 import { useDiagnosis } from "@/lib/hooks";
+import { isDemoMode } from "@/lib/services";
+import { notify } from "@/lib/feedback";
+import { DiagnosisError } from "@/lib/api/diagnosis";
 import type { CaseCategory, EvidenceKind } from "@/lib/demo/types";
 
 const schema = z.object({
@@ -56,7 +59,7 @@ function WizardShell({ children, footer }: { children: React.ReactNode; footer: 
         subtitle="FixMind reads your description and evidence, then ranks the fixes most likely to work for your exact environment."
         action={
           <div className="flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary">
-            <Microscope className="size-3.5" /> Free in this demo
+            <Microscope className="size-3.5" /> {isDemoMode ? "Free in this demo" : "Verified fixes"}
           </div>
         }
       />
@@ -70,13 +73,17 @@ export function DiagnoseWizard() {
   const router = useRouter();
   const { startDiagnosis } = useDiagnosis();
   const [analyzing, setAnalyzing] = React.useState(false);
+  const [stage, setStage] = React.useState({ name: "RECEIVED", progress: 0 });
+  const [failure, setFailure] = React.useState<DiagnosisError | null>(null);
+  const submitting = React.useRef(false);
   const [evidence, setEvidence] = React.useState<EvidenceKind[]>(["text"]);
 
   const {
     register,
     handleSubmit,
     setValue,
-    watch,
+    control,
+    getValues,
     setError,
     clearErrors,
     formState: { errors },
@@ -94,7 +101,8 @@ export function DiagnoseWizard() {
     },
   });
 
-  const title = watch("title");
+  const values = useWatch({ control });
+  const title = values.title ?? "";
 
   const toggleEvidence = (k: EvidenceKind) => {
     setEvidence((prev) => (prev.includes(k) ? prev.filter((e) => e !== k) : [...prev, k]));
@@ -109,8 +117,10 @@ export function DiagnoseWizard() {
     setAnalyzing(true);
   };
 
-  const finishAnalysis = React.useCallback(() => {
-    const values = watch();
+  const finishAnalysis = React.useCallback(async () => {
+    if (submitting.current) return;
+    submitting.current = true;
+    const values = getValues();
     const input = {
       title: values.title,
       description: values.description,
@@ -122,15 +132,29 @@ export function DiagnoseWizard() {
       software: values.software || undefined,
       evidence,
     };
-    const c = startDiagnosis(input);
-    router.replace(`/diagnose/${c.id}`);
-  }, [watch, evidence, startDiagnosis, router]);
+    try {
+      const c = await startDiagnosis(input, {
+        caseId: failure?.caseId,
+        onStage: (name, progress) => setStage({ name, progress }),
+      });
+      router.replace(isDemoMode ? `/diagnose/${c.id}` : `/cases/${c.id}`);
+    } catch (err) {
+      if (err instanceof DiagnosisError) setFailure(err);
+      notify.error(
+        "Diagnosis not submitted",
+        err instanceof Error ? err.message : "Could not run the diagnosis right now."
+      );
+      setAnalyzing(false);
+    } finally {
+      submitting.current = false;
+    }
+  }, [getValues, evidence, startDiagnosis, router, failure]);
 
   if (analyzing) {
     return (
       <WizardShell footer={<span />}>
         <AnimatePresence>
-          <AnalyzingPanel title={title} onComplete={finishAnalysis} />
+          <AnalyzingPanel title={title} onComplete={finishAnalysis} production={!isDemoMode} stage={stage.name} stageProgress={stage.progress} />
         </AnimatePresence>
       </WizardShell>
     );
@@ -141,14 +165,20 @@ export function DiagnoseWizard() {
       footer={
         <div className="mt-8 flex items-center justify-between border-t border-border/70 pt-4">
           <p className="text-xs text-muted-foreground">
-            {evidence.length} evidence {evidence.length === 1 ? "type" : "types"} · demo data stays local
+            {evidence.length} evidence {evidence.length === 1 ? "type" : "types"} ·{" "}
+            {isDemoMode ? "demo data stays local" : "submitted securely with your case"}
           </p>
           <Button type="submit" disabled={analyzing} onClick={handleSubmit(onSubmit)}>
-            Run AI Diagnosis <ArrowRight className="size-4" />
+            {isDemoMode ? "Run AI Diagnosis" : "Submit for Diagnosis"} <ArrowRight className="size-4" />
           </Button>
         </div>
       }
     >
+      {failure && <div role="alert" className="mt-4 rounded-xl border border-destructive p-4">
+        <p>{failure.message}</p>
+        <Button onClick={() => setAnalyzing(true)}>Retry</Button>
+        <Button variant="secondary" onClick={() => router.push(`/cases/${failure.caseId}`)}>Back to Case</Button>
+      </div>}
       <form className="mt-6 space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="grid gap-6 lg:grid-cols-[1fr_300px]">
           <div className="space-y-6">
@@ -180,7 +210,7 @@ export function DiagnoseWizard() {
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">Category</label>
-                <Select value={watch("category")} onValueChange={(v) => setValue("category", v as CategoryKey)}>
+                <Select value={values.category} onValueChange={(v) => setValue("category", v as CategoryKey)}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
@@ -203,7 +233,7 @@ export function DiagnoseWizard() {
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-foreground">Operating system</label>
-                <Select value={watch("os")} onValueChange={(v) => setValue("os", v ?? "")}>
+                <Select value={values.os} onValueChange={(v) => setValue("os", v ?? "")}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="OS" />
                   </SelectTrigger>
@@ -281,7 +311,9 @@ export function DiagnoseWizard() {
                 })}
               </div>
               <p className="mt-3 rounded-lg bg-muted/40 px-3 py-2 text-[11px] leading-relaxed text-muted-foreground">
-                Demo mode: evidence is simulated locally — nothing is uploaded.
+                {isDemoMode
+                  ? "Demo mode: evidence is simulated locally — nothing is uploaded."
+                  : "Production: evidence is recorded with your case and stays private to your account."}
               </p>
             </div>
 
@@ -292,7 +324,10 @@ export function DiagnoseWizard() {
               <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
                 <li className="flex gap-2"><Check className="mt-0.5 size-3 text-success" /> Ranked fixes with real success rates</li>
                 <li className="flex gap-2"><Check className="mt-0.5 size-3 text-success" /> A guided step-by-step try-fix checklist</li>
-                <li className="flex gap-2"><Check className="mt-0.5 size-3 text-success" /> Workshop +8 FIX when your outcome verifies</li>
+                <li className="flex gap-2">
+                  <Check className="mt-0.5 size-3 text-success" />
+                  {isDemoMode ? "Workshop +8 FIX when your outcome verifies" : "FIX rewards for verified outcomes"}
+                </li>
               </ul>
             </div>
           </aside>

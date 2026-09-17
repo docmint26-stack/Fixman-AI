@@ -62,7 +62,7 @@ export class DemoDiagnosisService implements DiagnosisService {
   analyze(input: DiagnosisInput): AnalysisResult {
     return findAnalysisFor(input);
   }
-  startDiagnosis(input: DiagnosisInput): AppCase {
+  async startDiagnosis(input: DiagnosisInput): Promise<AppCase> {
     const analysis = this.analyze(input);
     const c = useCaseStore.getState().createDiagnosis(input, analysis);
     useNotificationStore.getState().push(

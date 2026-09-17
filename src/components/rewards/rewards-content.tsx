@@ -37,8 +37,12 @@ import { TokenBadge } from "@/components/shared/token-badge";
 import { AnimatedCounter } from "@/components/shared/motion";
 import { PageHeader } from "@/components/shared/page-header";
 import { useRewards, useWallet } from "@/lib/hooks";
+import { isDemoMode } from "@/lib/services";
 import { notify } from "@/lib/feedback";
 import type { RewardItem, WalletProvider } from "@/lib/demo/types";
+
+const WEB3_NOTICE =
+  "Web3 claiming, staking, and wallet linking will be enabled after wallet verification and smart contract deployment.";
 
 const PROVIDERS: { key: WalletProvider; icon: string }[] = [
   { key: "MetaMask", icon: "fox" },
@@ -82,6 +86,10 @@ export function RewardsContent() {
 
   const onClaim = () => {
     if (claimable <= 0) return;
+    if (!isDemoMode) {
+      notify.info("Claiming not available yet", WEB3_NOTICE);
+      return;
+    }
     setClaiming(true);
     window.setTimeout(() => {
       const res = claim();
@@ -93,6 +101,10 @@ export function RewardsContent() {
 
   const onConnect = async (provider: WalletProvider) => {
     setWalletOpen(false);
+    if (!isDemoMode) {
+      notify.error("Wallet connection not available", WEB3_NOTICE);
+      return;
+    }
     await connect(provider);
     notify.success("Wallet connected", `${provider} · ${wallet.shortAddress ?? "testnet"}`);
   };
@@ -105,13 +117,13 @@ export function RewardsContent() {
         subtitle="FIX is your on-chain proof of helpfulness. Earn it, stake it, and claim it to your wallet."
         action={
           <div className="flex items-center gap-2 rounded-xl border border-border/70 bg-card/60 px-3 py-2">
-            <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-60" />
-                <span className="relative inline-flex size-2 rounded-full bg-success" />
+<span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-success opacity-60" />
+                  <span className="relative inline-flex size-2 rounded-full bg-success" />
+                </span>
+                {isDemoMode ? "Demo · Testnet" : "Phase 5 · mainnet"}
               </span>
-              Demo · Testnet
-            </span>
             <Separator orientation="vertical" className="h-4" />
             {wallet.shortAddress && wallet.status === "verified" ? (
               <>
@@ -147,8 +159,17 @@ export function RewardsContent() {
               <p className="pb-1.5 font-heading text-lg font-semibold text-cyan-300">FIX</p>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              ≈ ${(balance * 0.084).toLocaleString("en-US", { maximumFractionDigits: 2 })} · 1 FIX = $0.084
-              {walletDisconnected && " · connect a wallet to claim"}
+              {isDemoMode ? (
+                <>
+                  ≈ ${(balance * 0.084).toLocaleString("en-US", { maximumFractionDigits: 2 })} · 1 FIX = $0.084
+                  {walletDisconnected && " · connect a wallet to claim"}
+                </>
+              ) : (
+                <>
+                  FIX balance from verified outcomes ·{" "}
+                  {walletDisconnected ? "web3 claiming arrives with wallet verification" : "wallet claim arrives with smart contracts"}
+                </>
+              )}
             </p>
           </div>
 
@@ -173,7 +194,9 @@ export function RewardsContent() {
                 <DialogHeader>
                   <DialogTitle>Connect a wallet</DialogTitle>
                   <DialogDescription>
-                    You only need a wallet to claim on-chain FIX, stake, or receive royalties. Demo connection is simulated.
+                    {isDemoMode
+                      ? "You only need a wallet to claim on-chain FIX, stake, or receive royalties. Demo connection is simulated."
+                      : "Wallet verification and smart-contract claiming arrive in a later phase. Your verified rewards are tracked off-chain here until then."}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-2 py-2">
@@ -263,49 +286,71 @@ export function RewardsContent() {
               Your stake helps verify the ~90 new fixes submitted every day. Yield accrues every epoch (24h).
             </div>
             <div className="flex gap-2">
-              <Dialog open={stakeOpen} onOpenChange={setStakeOpen}>
-                <DialogTrigger render={<Button size="sm" className="flex-1"><Landmark className="size-3.5" /> Stake</Button>} />
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Stake into confidence pool</DialogTitle>
-                    <DialogDescription>
-                      Stake FIX to signal confidence in the network and earn 8.5% APR. Demo values only.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid grid-cols-3 gap-2 py-2">
-                    {[10, 20, 50].map((a) => (
-                      <button
-                        key={a}
-                        onClick={() => setStakeAmount(a)}
-                        className={cn(
-                          "rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors",
-                          stakeAmount === a
-                            ? "border-primary bg-primary/10 text-foreground"
-                            : "border-border text-muted-foreground hover:border-primary/40"
-                        )}
-                      >
-                        {a} FIX
-                      </button>
-                    ))}
-                  </div>
-                  <DialogFooter>
-                    <DialogClose render={<Button variant="ghost">Cancel</Button>} />
-                    <DialogClose
-                      render={
-                        <Button
-                          onClick={() => {
-                            stake(stakeAmount);
-                            notify.success("Staked", `${stakeAmount} FIX added to the confidence pool.`);
-                          }}
+              {isDemoMode ? (
+                <Dialog open={stakeOpen} onOpenChange={setStakeOpen}>
+                  <DialogTrigger render={<Button size="sm" className="flex-1"><Landmark className="size-3.5" /> Stake</Button>} />
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Stake into confidence pool</DialogTitle>
+                      <DialogDescription>
+                        Stake FIX to signal confidence in the network and earn 8.5% APR. Demo values only.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid grid-cols-3 gap-2 py-2">
+                      {[10, 20, 50].map((a) => (
+                        <button
+                          key={a}
+                          onClick={() => setStakeAmount(a)}
+                          className={cn(
+                            "rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors",
+                            stakeAmount === a
+                              ? "border-primary bg-primary/10 text-foreground"
+                              : "border-border text-muted-foreground hover:border-primary/40"
+                          )}
                         >
-                          Confirm stake
-                        </Button>
-                      }
-                    />
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-              <Button size="sm" variant="secondary" className="flex-1" onClick={() => unstake(10)} disabled={staked <= 0}>
+                          {a} FIX
+                        </button>
+                      ))}
+                    </div>
+                    <DialogFooter>
+                      <DialogClose render={<Button variant="ghost">Cancel</Button>} />
+                      <DialogClose
+                        render={
+                          <Button
+                            onClick={() => {
+                              stake(stakeAmount);
+                              notify.success("Staked", `${stakeAmount} FIX added to the confidence pool.`);
+                            }}
+                          >
+                            Confirm stake
+                          </Button>
+                        }
+                      />
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+              ) : (
+                <Button
+                  size="sm"
+                  className="flex-1"
+                  onClick={() => notify.info("Staking not available yet", WEB3_NOTICE)}
+                >
+                  <Landmark className="size-3.5" /> Stake
+                </Button>
+              )}
+              <Button
+                size="sm"
+                variant="secondary"
+                className="flex-1"
+                disabled={staked <= 0}
+                onClick={() => {
+                  if (!isDemoMode) {
+                    notify.info("Staking not available yet", WEB3_NOTICE);
+                    return;
+                  }
+                  unstake(10);
+                }}
+              >
                 <Vault className="size-3.5" /> Unstake 10
               </Button>
             </div>
@@ -318,7 +363,7 @@ export function RewardsContent() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Recent transactions</CardTitle>
-                <CardDescription>On testnet — every move is public.</CardDescription>
+                <CardDescription>{isDemoMode ? "On testnet — every move is public." : "Tracked off-chain until web3 claims arrive."}</CardDescription>
               </div>
               <Badge variant="outline" className="text-[10px]">
                 <ShieldCheck className="size-3 text-success" /> tx verified
@@ -400,10 +445,18 @@ export function RewardsContent() {
       <div className="flex items-center gap-3 rounded-xl border border-border/70 bg-card/60 p-4">
         <SparkleIcon />
         <p className="text-xs text-muted-foreground">
-          Earning since the testnet launch: <span className="font-semibold text-foreground">{lifetimeEarned.toLocaleString()} FIX</span>
-          {" · "}Your royalty stream accrued{" "}
-          <TrendingUp className="mr-1 inline size-3 text-success" />
-          <span className="font-semibold text-success">{royalty.toLocaleString()} FIX</span> from reused fixes alone.
+          Earning since the {isDemoMode ? "testnet launch" : "verified-outcome launch"}:{" "}
+          <span className="font-semibold text-foreground">{lifetimeEarned.toLocaleString()} FIX</span>
+          {" · "}
+          {isDemoMode ? (
+            <>
+              Your royalty stream accrued{" "}
+              <TrendingUp className="mr-1 inline size-3 text-success" />
+              <span className="font-semibold text-success">{royalty.toLocaleString()} FIX</span> from reused fixes alone.
+            </>
+          ) : (
+            <>Royalties are accrued from reused, verified fixes.</>
+          )}
         </p>
       </div>
     </div>

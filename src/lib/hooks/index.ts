@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import type {
   AppCase,
   Contribution,
@@ -15,7 +16,6 @@ import { useWalletStore } from "@/lib/state/wallet";
 import { useNotificationStore } from "@/lib/state/notifications";
 import { useLeaderboardStore } from "@/lib/state/leaderboard";
 import { useTourStore } from "@/lib/state/ui";
-import { contributions, contributionTasks } from "@/lib/demo/contributions";
 import {
   diagnosisService,
   rewardService,
@@ -49,6 +49,9 @@ export function useCases(): AppCase[] {
 }
 
 export function useCase(id: string): AppCase | undefined {
+  useEffect(() => {
+    void caseService.refreshCase?.(id).catch(() => undefined);
+  }, [id]);
   return useCaseStore((s) => s.cases.find((c) => c.id === id));
 }
 
@@ -134,8 +137,8 @@ export function useContributions(): {
   submit: ContributionService["submit"];
 } {
   return {
-    tasks: contributionTasks,
-    mine: contributions,
+    tasks: contributionService.tasks(),
+    mine: contributionService.mine(),
     submit: contributionService.submit,
   };
 }

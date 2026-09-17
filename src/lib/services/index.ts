@@ -11,18 +11,31 @@ import type {
   WalletService,
 } from "./types";
 import * as demo from "./demo";
+import {
+  apiAuthService,
+  apiCaseService,
+  apiContributionService,
+  apiDiagnosisService,
+  apiLeaderboardService,
+  apiNotificationService,
+  apiProfileService,
+  apiRewardService,
+  apiWalletService,
+} from "@/lib/api/services";
 
 export * from "./types";
 
-// In a later phase, swap these with real API-backed services when !DEMO_MODE.
-export const authService: AuthService = demo.authSvc;
-export const diagnosisService: DiagnosisService = demo.diagnosisSvc;
-export const caseService: CaseService = demo.caseSvc;
-export const rewardService: RewardService = demo.rewardSvc;
-export const walletService: WalletService = demo.walletSvc;
-export const contributionService: ContributionService = demo.contributionSvc;
-export const leaderboardService: LeaderboardService = demo.leaderboardSvc;
-export const notificationService: NotificationService = demo.notificationSvc;
-export const profileService: ProfileService = demo.profileSvc;
-
 export const isDemoMode = DEMO_MODE;
+
+// The demo mode uses fully local, deterministic services. In production
+// (NEXT_PUBLIC_DEMO_MODE !== "true") every service talks to the FastAPI
+// backend through Supabase-authenticated API calls instead.
+export const authService: AuthService = isDemoMode ? demo.authSvc : apiAuthService;
+export const diagnosisService: DiagnosisService = isDemoMode ? demo.diagnosisSvc : apiDiagnosisService;
+export const caseService: CaseService = isDemoMode ? demo.caseSvc : apiCaseService;
+export const rewardService: RewardService = isDemoMode ? demo.rewardSvc : apiRewardService;
+export const walletService: WalletService = isDemoMode ? demo.walletSvc : apiWalletService;
+export const contributionService: ContributionService = isDemoMode ? demo.contributionSvc : apiContributionService;
+export const leaderboardService: LeaderboardService = isDemoMode ? demo.leaderboardSvc : apiLeaderboardService;
+export const notificationService: NotificationService = isDemoMode ? demo.notificationSvc : apiNotificationService;
+export const profileService: ProfileService = isDemoMode ? demo.profileSvc : apiProfileService;

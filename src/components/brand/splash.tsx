@@ -10,7 +10,6 @@ const prefersReducedMotion = () =>
 
 export function SplashScreen() {
   const [visible, setVisible] = React.useState(false);
-  const [leaving, setLeaving] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
@@ -28,7 +27,6 @@ export function SplashScreen() {
       setProgress(Math.min(elapsed / total, 1));
       if (elapsed < total) requestAnimationFrame(tick);
       else {
-        setLeaving(true);
         window.setTimeout(() => setVisible(false), 800);
       }
     };

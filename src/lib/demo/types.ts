@@ -30,6 +30,10 @@ export interface CaseEnvironment {
 }
 
 export interface RankingFix {
+  verifiedSuccessRate?: number | null;
+  statisticalStatus?: string;
+  trustLabel?: string;
+  sourceType?: string;
   id: string;
   rank: number;
   title: string;
@@ -75,6 +79,9 @@ export interface SimilarCaseRef {
 }
 
 export interface AppCase {
+  problemSummary?: string;
+  confidenceBreakdown?: Record<string, number>;
+  sources?: import("@/lib/api/mappers").ApiSource[];
   id: string;
   title: string;
   category: CaseCategory;

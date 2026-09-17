@@ -1,0 +1,532 @@
+{
+  "label": "MOCK/DETERMINISTIC BASELINE",
+  "total_cases": 30,
+  "metrics": {
+    "structured_output_validity": 1.0,
+    "category_accuracy": 0.4667,
+    "root_cause_relevance": 0.9,
+    "retrieval_precision_at_3": 0.2667,
+    "safe_fix_rate": 1.0,
+    "unsupported_claim_rate": 0.5667,
+    "fix_ranking_relevance": 0.7667,
+    "verification_strategy_accuracy": 0.4667,
+    "sample_honesty": 1.0
+  },
+  "limitations": [
+    "Lexical relevance and claim-support proxies require human review.",
+    "Cold-start knowledge has limited coverage; no live model quality claim.",
+    "Verifier selection is scored, not execution on a user's device."
+  ],
+  "cases": [
+    {
+      "input": "Next.js hydration mismatch on locale dates",
+      "domain": "React / Next.js",
+      "predicted_category": "Coding Error",
+      "top_fix": "Resolving Next.js Hydration Mismatch Errors",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "React client markup differs from server HTML",
+      "domain": "React / Next.js",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Windows Wi-Fi Adapter Driver Regression After Windows Update",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 0.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 0.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Next.js timestamp changes during hydration",
+      "domain": "React / Next.js",
+      "predicted_category": "Coding Error",
+      "top_fix": "Resolving Next.js Hydration Mismatch Errors",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Python ModuleNotFoundError after activating a different environment",
+      "domain": "Python",
+      "predicted_category": "Coding Error",
+      "top_fix": "Python ModuleNotFoundError and Virtualenv Resolution",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Python import fails in virtualenv",
+      "domain": "Python",
+      "predicted_category": "Coding Error",
+      "top_fix": "Python ModuleNotFoundError and Virtualenv Resolution",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Python package installed but interpreter cannot import it",
+      "domain": "Python",
+      "predicted_category": "Coding Error",
+      "top_fix": "Python ModuleNotFoundError and Virtualenv Resolution",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Node.js cannot resolve module after checkout",
+      "domain": "Node.js",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Supabase Row Level Security (RLS) Policy Violations",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.0,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 0.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Node.js dependency missing on clean install",
+      "domain": "Node.js",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Supabase Row Level Security (RLS) Policy Violations",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.0,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 0.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Node.js lockfile differs from installed dependency tree",
+      "domain": "Node.js",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Supabase Row Level Security (RLS) Policy Violations",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.0,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 0.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Docker port collision prevents startup",
+      "domain": "Docker",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Docker Port Collision (0.0.0.0 Port Already Allocated)",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Docker bind fails because host port is allocated",
+      "domain": "Docker",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Docker Port Collision (0.0.0.0 Port Already Allocated)",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Docker container cannot listen on occupied port",
+      "domain": "Docker",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Docker Port Collision (0.0.0.0 Port Already Allocated)",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Git merge conflict after pulling changes",
+      "domain": "Git",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Git Merge Conflict Resolution and Conflict Markers",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Git rebase stops at conflicting edits",
+      "domain": "Git",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Git Merge Conflict Resolution and Conflict Markers",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Git conflict markers remain in tracked files",
+      "domain": "Git",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Git Merge Conflict Resolution and Conflict Markers",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Windows display driver crashes after update",
+      "domain": "Windows",
+      "predicted_category": "Network & Wi-Fi",
+      "top_fix": "Windows Wi-Fi Adapter Driver Regression After Windows Update",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.0,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 0.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Windows audio driver regression after update",
+      "domain": "Windows",
+      "predicted_category": "Network & Wi-Fi",
+      "top_fix": "Windows Wi-Fi Adapter Driver Regression After Windows Update",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.0,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 0.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Windows device driver resets after update",
+      "domain": "Windows",
+      "predicted_category": "Network & Wi-Fi",
+      "top_fix": "Windows Wi-Fi Adapter Driver Regression After Windows Update",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.0,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 0.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Wi-Fi disconnects after driver update",
+      "domain": "Networking",
+      "predicted_category": "Network & Wi-Fi",
+      "top_fix": "Windows Wi-Fi Adapter Driver Regression After Windows Update",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Wireless adapter resets while connected to Wi-Fi",
+      "domain": "Networking",
+      "predicted_category": "Network & Wi-Fi",
+      "top_fix": "Windows Wi-Fi Adapter Driver Regression After Windows Update",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Wi-Fi connection drops after Windows update",
+      "domain": "Networking",
+      "predicted_category": "Network & Wi-Fi",
+      "top_fix": "Windows Wi-Fi Adapter Driver Regression After Windows Update",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Excel XLOOKUP returns #N/A for visible match",
+      "domain": "Excel",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Excel XLOOKUP Returns #N/A (Whitespace and Formatting Mismatch)",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Excel lookup key includes trailing whitespace",
+      "domain": "Excel",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Excel XLOOKUP Returns #N/A (Whitespace and Formatting Mismatch)",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Excel XLOOKUP compares number with text",
+      "domain": "Excel",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Excel XLOOKUP Returns #N/A (Whitespace and Formatting Mismatch)",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 1.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 1.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 1.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "VS Code uses a different interpreter from terminal",
+      "domain": "VS Code",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Python ModuleNotFoundError and Virtualenv Resolution",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "VS Code workspace selects stale runtime",
+      "domain": "VS Code",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Python ModuleNotFoundError and Virtualenv Resolution",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 0.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "VS Code debug interpreter differs from active environment",
+      "domain": "VS Code",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Python ModuleNotFoundError and Virtualenv Resolution",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Supabase row level security denies authenticated insert",
+      "domain": "Supabase",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Supabase Row Level Security (RLS) Policy Violations",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 0.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Supabase select returns no rows under policy",
+      "domain": "Supabase",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Supabase Row Level Security (RLS) Policy Violations",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    },
+    {
+      "input": "Supabase authenticated role lacks table permission",
+      "domain": "Supabase",
+      "predicted_category": "Apps & Productivity",
+      "top_fix": "Supabase Row Level Security (RLS) Policy Violations",
+      "scores": {
+        "structured_output_validity": 1.0,
+        "category_accuracy": 0.0,
+        "root_cause_relevance": 1.0,
+        "retrieval_precision_at_3": 0.3333333333333333,
+        "safe_fix_rate": 1.0,
+        "unsupported_claim_rate": 0.0,
+        "fix_ranking_relevance": 1.0,
+        "verification_strategy_accuracy": 0.0,
+        "sample_honesty": 1.0
+      }
+    }
+  ]
+}

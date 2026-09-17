@@ -90,8 +90,8 @@ describe("diagnosis service", () => {
     expect(result.likelyCause.toLowerCase()).toContain("hydration");
   });
 
-  it("creates a suggested case and a notification", () => {
-    const c = diagnosisService.startDiagnosis(baseInput);
+  it("creates a suggested case and a notification", async () => {
+    const c = await diagnosisService.startDiagnosis(baseInput);
     expect(c.status).toBe("Suggested");
     expect(c.createdByMe).toBe(true);
     expect(caseService.get(c.id)).toBeDefined();
@@ -100,8 +100,8 @@ describe("diagnosis service", () => {
 });
 
 describe("case progression + rewards", () => {
-  it("moves a case from suggested to verified and unlocks the reward", () => {
-    const c = diagnosisService.startDiagnosis(baseInput);
+  it("moves a case from suggested to verified and unlocks the reward", async () => {
+    const c = await diagnosisService.startDiagnosis(baseInput);
     const fix = c.fixes[0];
     caseService.applyFix(c.id, fix.id);
     expect(caseService.get(c.id)?.status).toBe("Applied");

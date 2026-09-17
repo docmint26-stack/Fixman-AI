@@ -1,0 +1,20 @@
+[project]
+name = "fixmind-api"
+version = "0.3.0"
+requires-python = ">=3.12"
+dependencies = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.34,<1", "pydantic-settings>=2.7,<3", "sqlalchemy[asyncio]>=2.0,<2.1", "asyncpg>=0.30,<1", "alembic>=1.14,<2", "httpx>=0.28,<1", "PyJWT[crypto]>=2.10,<3", "python-multipart>=0.0.20", "aiosqlite>=0.21,<1", "pgvector>=0.3,<1"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+cache_dir = ".test-cache"
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

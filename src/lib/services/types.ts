@@ -30,10 +30,11 @@ export interface AuthService {
 export interface DiagnosisService {
   stages(): { label: string; detail: string }[];
   analyze(input: DiagnosisInput): AnalysisResult;
-  startDiagnosis(input: DiagnosisInput): AppCase;
+  startDiagnosis(input: DiagnosisInput, options?: import("@/lib/api/diagnosis").DiagnosisOptions): Promise<AppCase>;
 }
 
 export interface CaseService {
+  refreshCase?(id: string): Promise<void>;
   list(): AppCase[];
   get(id: string): AppCase | undefined;
   setStatus(id: string, status: CaseStatus): void;
