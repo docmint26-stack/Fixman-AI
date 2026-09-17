@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Menu, X } from "lucide-react";
+import { ArrowRight, Check, ExternalLink, FileText, Menu, X } from "lucide-react";
 import * as React from "react";
 import { cn } from "cn";
 
@@ -472,6 +472,20 @@ export function LandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-border/50 bg-card/30">
+        <section aria-label="Pitch and whitepaper" className="mx-auto grid max-w-6xl gap-4 px-4 pt-10 sm:grid-cols-2 sm:px-6">
+          {[
+            { label: "Pitch", description: "Explore the FixMind AI investor presentation.", href: "/documents/fixmind-ai-pitch.pdf" },
+            { label: "Whitepaper", description: "Read the FixMind AI whitepaper v1.0.", href: "/documents/fixmind-ai-whitepaper.pdf" },
+          ].map((document) => (
+            <div key={document.label} className="rounded-2xl border border-border/60 bg-card/50 p-5">
+              <h2 className="font-heading text-lg font-semibold text-foreground">{document.label}:</h2>
+              <p className="mt-1 text-sm text-muted-foreground">{document.description}</p>
+              <Button variant="secondary" className="mt-4" render={<a href={document.href} target="_blank" rel="noopener noreferrer" aria-label={`Open ${document.label} PDF in a new tab`} />}>
+                <FileText className="size-4" /> Open {document.label} <ExternalLink className="size-3.5" />
+              </Button>
+            </div>
+          ))}
+        </section>
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between">
           <div>
             <Logo size="sm" />
@@ -486,7 +500,7 @@ export function LandingPage() {
             <Button size="sm" variant="ghost" className="text-muted-foreground">
               Docs
             </Button>
-            <Button size="sm" variant="ghost" className="text-muted-foreground">
+            <Button size="sm" variant="ghost" className="text-muted-foreground" render={<a href="/documents/fixmind-ai-whitepaper.pdf" target="_blank" rel="noopener noreferrer" />}>
               Whitepaper
             </Button>
             <Button size="sm" variant="ghost" className="text-muted-foreground">
